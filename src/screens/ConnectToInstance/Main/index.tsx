@@ -43,7 +43,7 @@ export function MainView() {
     }
     useEffect(() => {
         uiStore
-            .getFromStorage('anythingllm_external_connections', [])
+            .getFromStorage('huntkhashai_external_connections', [])
             .then((connections) => setExistingConnections(connections));
     }, []);
     useHighjackBackButtonPress(goHome);
@@ -60,13 +60,13 @@ export function MainView() {
                 <TouchableOpacity onPress={goHome} className="absolute top-8 left-0 flex flex-row items-center gap-2">
                     <ArrowLeft size={24} color="#FFF" weight="bold" />
                 </TouchableOpacity>
-                <Text style={{ maxWidth: '80%' }} numberOfLines={1} ellipsizeMode="middle" className="text-white text-lg font-medium">Connect to AnythingLLM</Text>
+                <Text style={{ maxWidth: '80%' }} numberOfLines={1} ellipsizeMode="middle" className="text-white text-lg font-medium">Connect to Hunt-K-HaSh AI</Text>
             </View>
 
             <View style={{ gap: 20 }} className="w-full flex flex-col items-center justify-center">
                 <CameraView onScanReceived={onQRCodeScanned} />
                 <Text style={{ textAlign: 'center', fontSize: 14, width: '80%' }} className="text-white/80">
-                    Scan the QR code for your AnythingLLM instance or client to sync it's data to this mobile device for AI on the go!
+                    Scan the QR code for your Hunt-K-HaSh AI instance or client to sync it's data to this mobile device for AI on the go!
                 </Text>
             </View>
 
@@ -88,7 +88,7 @@ export function MainView() {
                                     .catch((error) => console.error(error))
                                 }
                                 onPress={() => {
-                                    uiStore.setToStorage('current_anythingllm_external_connection', connection);
+                                    uiStore.setToStorage('current_huntkhashai_external_connection', connection);
                                     navigation.reset({
                                         index: 0,
                                         // @ts-ignore

@@ -1,20 +1,21 @@
-import { getApp } from '@react-native-firebase/app'
-import { getAnalytics, logEvent } from '@react-native-firebase/analytics'
-import { isDebugMode } from '@/utils/constants';
-
 /**
- * Telemetry class for logging events to Firebase Analytics
- * There are custom events and standard events
- * Predefined events: https://rnfirebase.io/analytics/usage#predefined-events
- * Reserved events: https://rnfirebase.io/analytics/usage#reserved-events
+ * Telemetry is disabled in Hunt-K-HaSh AI.
+ *
+ * Upstream logged usage events to Firebase Analytics - chats completed,
+ * documents imported, workspaces created, onboarding answers, model settings -
+ * with no way to opt out. Nothing about how this app is used leaves the device,
+ * so events are dropped here instead of being sent anywhere.
+ *
+ * The call sites throughout the app are left in place on purpose: they document
+ * what the product considers interesting, and keeping this shape means an
+ * upstream port does not have to re-thread them.
  */
 class Telemetry {
     private static instance: Telemetry;
-    private analytics: ReturnType<typeof getAnalytics> | null = null;
 
     /**
-     * Custom events are events that are not predefined by Firebase Analytics
-     * We set them here so it is easier to manage and track them across the app
+     * Event names, kept so existing call sites keep type-checking. Nothing is
+     * transmitted for any of them.
      */
     CUSTOM_EVENTS = {
         ONBOARDING: {
@@ -40,31 +41,21 @@ class Telemetry {
             /** A user/assistant message pair was removed and its prompt re-submitted */
             CHAT_RETRIED: 'chat_retried',
 
-            /** The user use the QR code to connect to an AnythingLLM intance */
+            /** The user used the QR code to connect to a Hunt-K-HaSh AI instance */
             EXTERNAL_CONNECTION_ESTABLISHED: 'external_connection_established',
-            /** External workspace imported from the AnythingLLM Desktop */
+            /** External workspace imported from Hunt-K-HaSh AI desktop */
             EXTERNAL_WORKSPACE_IMPORTED: 'external_workspace_imported',
-            /** External workspace imported from the AnythingLLM Desktop */
         }
     } as const;
 
     constructor() {
         if (Telemetry.instance) return Telemetry.instance;
         Telemetry.instance = this;
-        this.analytics = getAnalytics(getApp());
     }
 
-    log(message: any, ...args: any[]) {
-        console.log(`\x1b[32m[Telemetry]\x1b[0m`, message, ...args)
-    }
-
-    /**
-     * Log a custom event to Firebase Analytics
-     * https://rnfirebase.io/analytics/usage#custom-events
-     */
-    logEvent(name: string, params: Record<string, any> = {}) {
-        if (isDebugMode) this.log(`Tracking event: ${name}`, params);
-        logEvent(this.analytics!, name, params);
+    /** Intentionally does nothing. */
+    logEvent(_name: string, _params: Record<string, any> = {}) {
+        return;
     }
 }
 

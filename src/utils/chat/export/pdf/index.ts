@@ -15,15 +15,15 @@ const LABEL_SIZE = 8.5;
  * with any image attachments as a row of thumbnails beneath them;
  * assistant replies go through the markdown renderer so headings, lists, code
  * and tables come out styled. Ends with a light-gray italic "generated with"
- * footer and the AnythingLLM watermark on every page.
+ * footer and the Hunt-K-HaSh AI watermark on every page.
  */
 export async function buildThreadPdfBase64(ctx: ThreadExportContext): Promise<string> {
   const { workspace, thread, chats, modelName, exportedAt } = ctx;
   const doc = await PDFDocument.create();
   doc.setTitle(thread.name);
   doc.setSubject(`Chat transcript from the "${workspace.name}" workspace`);
-  doc.setCreator('AnythingLLM Mobile');
-  doc.setProducer('AnythingLLM Mobile');
+  doc.setCreator('Hunt-K-HaSh AI Mobile');
+  doc.setProducer('Hunt-K-HaSh AI Mobile');
   doc.setCreationDate(new Date(exportedAt));
   doc.setModificationDate(new Date(exportedAt));
 

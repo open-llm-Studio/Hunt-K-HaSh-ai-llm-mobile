@@ -3,7 +3,7 @@ import {
   DefaultTheme as PaperLightTheme,
   configureFonts,
 } from 'react-native-paper';
-import { MD3BaseColors, SemanticColors, Theme, AnythingLLMColorways } from './types';
+import { MD3BaseColors, SemanticColors, Theme, HuntKHashAIColorways } from './types';
 import { withOpacity, stateLayerOpacity } from './colorUtils';
 import { StyleSheet } from 'react-native';
 
@@ -15,7 +15,7 @@ const md3BaseColors: Partial<MD3BaseColors> = {
   error: '#FF653F',
 };
 
-const AnythingLLMColors = (isDark: boolean = false) => {
+const HuntKHashAIColors = (isDark: boolean = false) => {
   // TODO: add light theme colors
   const darkThemeColors = {
     text: {
@@ -34,14 +34,14 @@ const AnythingLLMColors = (isDark: boolean = false) => {
   return darkThemeColors;
 };
 
-type ApplicationColors = MD3BaseColors & { anythingllm: AnythingLLMColorways };
+type ApplicationColors = MD3BaseColors & { huntkhashai: HuntKHashAIColorways };
 const createBaseColors = (isDark: boolean): ApplicationColors => {
   const baseTheme = isDark ? MD3DarkTheme : PaperLightTheme;
 
   if (isDark) {
     return {
       ...baseTheme.colors,
-      anythingllm: AnythingLLMColors(isDark),
+      huntkhashai: HuntKHashAIColors(isDark),
       primary: '#DADDE6',
       onPrimary: '#44464C',
       primaryContainer: '#5B5E66',
@@ -81,7 +81,7 @@ const createBaseColors = (isDark: boolean): ApplicationColors => {
 
   return {
     ...baseTheme.colors,
-    anythingllm: AnythingLLMColors(isDark),
+    huntkhashai: HuntKHashAIColors(isDark),
     primary: md3BaseColors.primary!,
     onPrimary: '#FFFFFF',
     primaryContainer: '#DEE0E6',

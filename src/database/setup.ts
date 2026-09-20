@@ -12,7 +12,7 @@ import WorkspaceChat from './models/WorkspaceChat';
 const adapter = new SQLiteAdapter({
   schema,
   migrations,
-  dbName: 'anythingllm',
+  dbName: 'huntkhashai',
   jsi: Platform.OS === 'ios', // Enable JSI for better performance on iOS
   onSetUpError: (error) => console.error('Database setup error:', error),
 });

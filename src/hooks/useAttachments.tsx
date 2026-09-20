@@ -259,7 +259,7 @@ export default function useAttachments(wsSlug: string): AttachmentInterface {
         if (!deviceInfo.isAndroid) return true; // iOS prompts on first use via NSCameraUsageDescription
         const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA, {
             title: 'Camera access',
-            message: 'AnythingLLM needs the camera to take a photo for your prompt.',
+            message: 'Hunt-K-HaSh AI needs the camera to take a photo for your prompt.',
             buttonPositive: 'Allow',
             buttonNegative: 'Cancel',
         });

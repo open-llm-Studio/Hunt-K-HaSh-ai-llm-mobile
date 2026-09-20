@@ -1,0 +1,33 @@
+package com.huntkhashai
+
+import com.facebook.react.ReactActivity
+import com.facebook.react.ReactActivityDelegate
+import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
+import com.facebook.react.defaults.DefaultReactActivityDelegate
+import android.os.Bundle  // Required for onCreate parameter
+
+
+class MainActivity : ReactActivity() {
+
+  /**
+   * Returns the name of the main component registered from JavaScript. This is used to schedule
+   * rendering of the component.
+   */
+  override fun getMainComponentName(): String = "Hunt-K-HaSh AI"
+
+  /**
+   * Returns the instance of the [ReactActivityDelegate]. We use [DefaultReactActivityDelegate]
+   * which allows you to enable New Architecture with a single boolean flags [fabricEnabled]
+   */
+  override fun createReactActivityDelegate(): ReactActivityDelegate =
+      DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+      // Edge-to-edge is applied by ReactActivity via the edgeToEdgeEnabled gradle property.
+      // Pass null to prevent react-native-screens fragments from being restored
+      // This fixes the "Screen fragments should never be restored" crash
+      // See: https://github.com/software-mansion/react-native-screens/issues/17
+      // and https://github.com/software-mansion/react-native-screens?tab=readme-ov-file#android
+      super.onCreate(null)
+  }
+}

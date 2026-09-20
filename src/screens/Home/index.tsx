@@ -66,7 +66,7 @@ export default function Home() {
         ) : (
           <>
             <View className="flex flex-col items-center justify-center gap-y-1">
-              <Text className="text-2xl font-bold text-white">Welcome to AnythingLLM</Text>
+              <Text className="text-2xl font-bold text-white">Welcome to Hunt-K-HaSh AI</Text>
               <Text className="text-white text-center">
                 Get started by creating a new workspace.
               </Text>

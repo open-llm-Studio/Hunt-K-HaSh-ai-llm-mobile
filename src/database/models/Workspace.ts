@@ -7,7 +7,7 @@ import WorkspaceThread, { WorkspaceThreadType } from './WorkspaceThread';
 import Document from './Document';
 import uiStore from '@/store/UIStore';
 import WorkspaceChat from './WorkspaceChat';
-import AnythingLLMExternal from '@/utils/AnythingLLMExternal';
+import HuntKHashAIExternal from '@/utils/HuntKHashAIExternal';
 import Telemetry from '@/utils/Telemetry';
 import { getDefaultContextLength } from '@/utils/contextLength';
 
@@ -137,7 +137,7 @@ export default class Workspace extends Model {
       remoteServerReachable: async (): Promise<boolean> => {
         if (!isRemote || !remoteConfig) return false;
         try {
-          const external = new AnythingLLMExternal(remoteConfig.connectionUrl, remoteConfig.deviceToken);
+          const external = new HuntKHashAIExternal(remoteConfig.connectionUrl, remoteConfig.deviceToken);
           const response = await external.tokenIsApproved();
           return response;
         } catch (error) {
@@ -148,7 +148,7 @@ export default class Workspace extends Model {
       remoteModelTag: async (): Promise<string> => {
         if (!isRemote || !remoteConfig) return '';
         try {
-          const external = new AnythingLLMExternal(remoteConfig.connectionUrl, remoteConfig.deviceToken);
+          const external = new HuntKHashAIExternal(remoteConfig.connectionUrl, remoteConfig.deviceToken);
           const response = await external.sendCommand('model-tag', { workspaceSlug: remoteConfig.slug });
           return response.model;
         } catch (error) {

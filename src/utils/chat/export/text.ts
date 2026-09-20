@@ -31,6 +31,6 @@ export function buildThreadText(ctx: ThreadExportContext): string {
   }
 
   lines.push(generatedWithLine(modelName));
-  lines.push('Exported from AnythingLLM Mobile');
+  lines.push('Exported from Hunt-K-HaSh AI Mobile');
   return lines.join('\n');
 }

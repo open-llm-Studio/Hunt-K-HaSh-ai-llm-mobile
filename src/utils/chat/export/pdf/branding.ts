@@ -1,8 +1,8 @@
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
-import { ANYTHING_LLM_LOGO_PNG_BASE64 } from './logo';
+import { HUNT_K_HASH_AI_LOGO_PNG_BASE64 } from './logo';
 
 /**
- * Applies AnythingLLM branding to every page of a PDF - a faded wordmark with a
+ * Applies Hunt-K-HaSh AI branding to every page of a PDF - a faded wordmark with a
  * small "created with" caption above it, bottom right. Mirrors the desktop
  * `create-files/pdf/utils.js` plugin so exports look the same across platforms.
  */
@@ -12,7 +12,7 @@ export async function applyBranding(pdfDoc: PDFDocument): Promise<void> {
 
   let logoImage: Awaited<ReturnType<PDFDocument['embedPng']>> | null = null;
   try {
-    logoImage = await pdfDoc.embedPng(ANYTHING_LLM_LOGO_PNG_BASE64);
+    logoImage = await pdfDoc.embedPng(HUNT_K_HASH_AI_LOGO_PNG_BASE64);
   } catch {
     logoImage = null;
   }
@@ -53,7 +53,7 @@ export async function applyBranding(pdfDoc: PDFDocument): Promise<void> {
         opacity: 0.6,
       });
     } else {
-      const fallbackText = 'Created with AnythingLLM';
+      const fallbackText = 'Created with Hunt-K-HaSh AI';
       const fontSize = 9;
       const textWidth = font.widthOfTextAtSize(fallbackText, fontSize);
       page.drawText(fallbackText, {

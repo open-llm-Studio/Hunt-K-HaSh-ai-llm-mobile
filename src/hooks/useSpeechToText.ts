@@ -27,7 +27,7 @@ async function ensureMicPermission(): Promise<boolean> {
         PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
         {
             title: 'Microphone access',
-            message: 'AnythingLLM needs microphone access to transcribe your speech into a prompt.',
+            message: 'Hunt-K-HaSh AI needs microphone access to transcribe your speech into a prompt.',
             buttonPositive: 'Allow',
             buttonNegative: 'Cancel',
         },

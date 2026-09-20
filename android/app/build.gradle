@@ -38,9 +38,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.anythingllm"
+    namespace "com.huntkhashai"
     defaultConfig {
-        applicationId "com.anythingllm"
+        applicationId "com.huntkhashai"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 85
@@ -57,9 +57,9 @@ android {
             keyPassword 'android'
         }
         release {
-            storeFile file("anythingllm-upload-key.keystore")
+            storeFile file("huntkhashai-upload-key.keystore")
             storePassword project.env.get("APP_RELEASE_STORE_PASSWORD")
-            keyAlias "anythingllm-keystore"
+            keyAlias "huntkhashai-keystore"
             keyPassword project.env.get("APP_RELEASE_KEY_PASSWORD")
         }
     }

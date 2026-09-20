@@ -42,13 +42,13 @@ platform :ios do
     )
 
     build_ios_app(
-      scheme: "AnythingLLM",
+      scheme: "HuntKHashAI",
       export_method: "app-store",
       output_directory: "./build",
       clean: true,
       export_options: {
         provisioningProfiles: {
-          "ai.anythingllm" => "match AppStore ai.anythingllm"
+          "ai.huntkhashai" => "match AppStore ai.huntkhashai"
         },
         signingStyle: "manual"
       }

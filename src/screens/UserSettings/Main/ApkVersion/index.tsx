@@ -13,6 +13,8 @@ export default function ApkVersion() {
 
     useEffect(() => {
         const fetchRemoteVersion = async () => {
+            // No release feed configured: nothing to check against.
+            if (!PATHS.remote_version_url) return;
             try {
                 // returns something like: 1.0.2
                 await fetch(PATHS.remote_version_url, {
@@ -42,7 +44,7 @@ export default function ApkVersion() {
     return (
         <View className="flex flex-row items-end justify-between">
             <Text style={{ color: '#9F9FA0' }} className="text-sm uppercase">
-                About AnythingLLM
+                About Hunt-K-HaSh AI
             </Text>
             {isOnLatestVersion ? (
                 <Text style={{ color: '#888' }} className="text-sm">

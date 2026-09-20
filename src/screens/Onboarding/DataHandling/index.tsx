@@ -65,7 +65,7 @@ export default function DataHandling() {
 
         <SafeView scrollable={false} safeAreaClassNames="bg-transparent" containerClassNames="h-full z-[1]" containerStyle={{ paddingTop: insets.top + 20 }}>
           <View className="flex flex-col gap-y-1 items-center my-auto">
-            <Image source={require('@/assets/logo/anything-llm.png')} resizeMode="contain" className="w-[70vw]" />
+            <Image source={require('@/assets/logo/hunt-k-hash-ai.png')} resizeMode="contain" className="w-[70vw]" />
             <View className="flex flex-row gap-x-2 items-center -mt-8">
               <ActivityIndicator size="small" animating={true} color="#fff" />
               <Text className="text-white text-xl text-center animate-pulse">Setting up your first workspace</Text>
@@ -91,7 +91,7 @@ export default function DataHandling() {
             <View className="flex flex-col gap-y-4 justify-center items-center">
               <Text className="text-white text-4xl font-bold text-center">Data Handling & Privacy</Text>
               <Text className="text-white/60 text-xl text-center">
-                With AnythingLLM, all chats, documents, and other data is processed and stored on your device.
+                With Hunt-K-HaSh AI, all chats, documents, and other data is processed and stored on your device.
               </Text>
             </View>
 
@@ -99,7 +99,7 @@ export default function DataHandling() {
               <PrivacyItem
                 name="Fully Local Chats"
                 description="All chats are stored on your device."
-                image={<Image source={require('@/assets/logo/anything-llm-infinity.png')} className="w-[34px] h-[34px]" resizeMode="contain" />}
+                image={<Image source={require('@/assets/logo/hunt-k-hash-ai-infinity.png')} className="w-[34px] h-[34px]" resizeMode="contain" />}
               />
               <PrivacyItem
                 name="Document Embedding"
@@ -115,7 +115,7 @@ export default function DataHandling() {
 
             <View className="flex flex-row gap-x-4 items-center justify-between">
               <TouchableOpacity onPress={onContinue} className="w-full bg-[--cta-light-blue] rounded-lg px-4 py-2 flex flex-row items-center justify-center">
-                <Text className="text-black text-xl">Experience AnythingLLM</Text>
+                <Text className="text-black text-xl">Experience Hunt-K-HaSh AI</Text>
               </TouchableOpacity>
             </View>
           </React.Fragment>

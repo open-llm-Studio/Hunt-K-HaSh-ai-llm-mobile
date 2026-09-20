@@ -16,7 +16,7 @@ platform :android do
       task: "assemble",
       build_type: "Release",
       properties: {
-        "android.injected.signing.store.file" => File.join(android_dir, "app/anythingllm-release-key.keystore"),
+        "android.injected.signing.store.file" => File.join(android_dir, "app/huntkhashai-release-key.keystore"),
         "android.injected.signing.store.password" => ENV["KEYSTORE_PASSWORD"],
         "android.injected.signing.key.alias" => ENV["KEY_ALIAS"],
         "android.injected.signing.key.password" => ENV["KEY_PASSWORD"]
@@ -28,7 +28,7 @@ platform :android do
       task: "bundle",
       build_type: "Release",
       properties: {
-        "android.injected.signing.store.file" => File.join(android_dir, "app/anythingllm-release-key.keystore"),
+        "android.injected.signing.store.file" => File.join(android_dir, "app/huntkhashai-release-key.keystore"),
         "android.injected.signing.store.password" => ENV["KEYSTORE_PASSWORD"],
         "android.injected.signing.key.alias" => ENV["KEY_ALIAS"],
         "android.injected.signing.key.password" => ENV["KEY_PASSWORD"]
@@ -37,7 +37,7 @@ platform :android do
 
     upload_to_play_store(
       track: "alpha",
-      package_name: "com.anythingllm",
+      package_name: "com.huntkhashai",
       skip_upload_metadata: true,
       skip_upload_images: true,
       skip_upload_screenshots: true,

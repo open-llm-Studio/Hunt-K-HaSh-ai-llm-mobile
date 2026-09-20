@@ -36,7 +36,7 @@ interface VectorBoxInterface {
  * ObjectBox is a NoSQL database that supports vector search.
  * 
  * @see https://docs.objectbox.io/
- * @see android/app/src/main/java/com/anythingllm/vectordb/VectorBox.kt
+ * @see android/app/src/main/java/com/huntkhashai/vectordb/VectorBox.kt
  */
 class VectorDB {
     private static instance: VectorDB;

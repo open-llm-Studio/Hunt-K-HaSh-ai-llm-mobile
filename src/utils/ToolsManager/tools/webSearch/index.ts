@@ -2,6 +2,7 @@ import { IAgentWebSearchCitation } from "@/database/models/WorkspaceChat";
 import { IStreamEvent } from "@/utils/AiProviders/baseOpenAILikeProvider";
 import { safeJsonParse } from "@/utils/formatters";
 import DeviceInfo from "react-native-device-info";
+import { SEARXNG_BASE_URL, SEARXNG_API_KEY, SEARXNG_API_HEADER } from "@env";
 
 type SearXNGResult = {
     url: string;
@@ -71,8 +72,15 @@ export default {
         maxResults: 4, // preserve context - You.com results carry more text per item than SearXNG did
         youSearchUrl: 'https://api.you.com/v1/agents/search',
         youSearchCount: 10,
-        anythingLLMPublicSearXNGKey: '1hwFZHYnPHyK1cynbPq9oYbA0tCWpmPss9q8NYUTPyBXpUBPu833fi',
-        anythingLLMPublicSerpHeader: 'x-anythingllm-searxng-serp',
+        /**
+         * Upstream fell back to a SearXNG instance run by Mintplex Labs, which
+         * meant a failed You.com call sent the user's search query to a third
+         * party. The fallback now only runs against a SearXNG instance you host
+         * and configure; when unset there is no fallback.
+         */
+        searXNGBaseUrl: SEARXNG_BASE_URL ?? '',
+        searXNGApiKey: SEARXNG_API_KEY ?? '',
+        searXNGApiHeader: SEARXNG_API_HEADER ?? 'Authorization',
     },
     execute: async function (args: { query: string } | string, streamEmitter: (event: IStreamEvent, data: any) => void): Promise<string> {
         try {
@@ -101,19 +109,19 @@ export default {
     },
 
     /**
-     * Identifies this client to search providers, eg: `AnythingLLMMobile/1.1.0`.
+     * Identifies this client to search providers, eg: `HuntKHashAIMobile/1.1.0`.
      */
     _getUserAgent(): string {
         let version = 'unknown';
         try {
             version = DeviceInfo.getVersion() || version;
         } catch { }
-        return `AnythingLLMMobile/${version}`;
+        return `HuntKHashAIMobile/${version}`;
     },
 
     /**
      * You.com Search - keyless free tier (100 queries/day per IP, responds 402 once exhausted).
-     * Mirrors the `_youSearch` engine in AnythingLLM core.
+     * Mirrors the `_youSearch` engine in Hunt-K-HaSh AI core.
      * Returns `null` on any request failure so the caller can fall back to SearXNG.
      * An empty-but-successful response is returned as-is since SearXNG is unlikely to do better.
      */
@@ -169,17 +177,24 @@ export default {
     },
 
     /**
-     * SearXNG via our self-hosted Railway instance. Fallback only - You.com is tried first.
+     * SearXNG fallback, only when an administrator has configured their own
+     * instance. You.com is tried first.
      */
     async _searXNG(query: string): Promise<SERPResultItem[]> {
-        const baseUrl = 'https://cguicrchal1ftynn7buaizunxsjm0.anythingllm.com/search';
+        if (!this.config.searXNGBaseUrl) {
+            console.log('No SearXNG instance is configured - skipping the fallback search.');
+            return [];
+        }
+        const baseUrl = `${this.config.searXNGBaseUrl.replace(/\/+$/, '')}/search`;
         const searchURL = new URL(baseUrl);
         searchURL.searchParams.append("q", query);
         searchURL.searchParams.append("format", "json");
         const results = await fetch(searchURL.toString(), {
             method: 'GET',
             headers: {
-                [this.config.anythingLLMPublicSerpHeader]: this.config.anythingLLMPublicSearXNGKey,
+                ...(this.config.searXNGApiKey
+                    ? { [this.config.searXNGApiHeader]: this.config.searXNGApiKey }
+                    : {}),
                 'x-device': 'mobile',
                 'User-Agent': this._getUserAgent(),
             },

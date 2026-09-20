@@ -29,7 +29,7 @@ export default function OnboardingWelcome() {
         <View className="flex flex-col h-full justify-between py-4">
           <View className="flex flex-col justify-center items-center gap-y-2">
             <Text className="text-[#B2DDFF] text-xl">Welcome</Text>
-            <Image source={require("@/assets/logo/anything-llm.png")} resizeMode="contain" style={{ width: 220, height: 32 }} />
+            <Image source={require("@/assets/logo/hunt-k-hash-ai.png")} resizeMode="contain" style={{ width: 220, height: 32 }} />
           </View>
           <Image
             source={require("@/assets/onboarding/welcome.png")}

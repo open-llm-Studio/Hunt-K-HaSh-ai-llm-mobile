@@ -44,13 +44,13 @@ class PushNotifications {
 
         // Primary notification channel
         notifee.createChannel({
-            id: 'anythingllm-channel',
-            name: 'AnythingLLM',
+            id: 'huntkhashai-channel',
+            name: 'Hunt-K-HaSh AI',
         }).then(createdChannelId => this.channels.primary = createdChannelId);
 
         // Progress channel to prevent vibration/sounds
         notifee.createChannel({
-            id: 'anythingllm-progress',
+            id: 'huntkhashai-progress',
             name: 'Download Progress',
             vibration: false,
             importance: 3,

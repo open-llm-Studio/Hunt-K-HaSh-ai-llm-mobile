@@ -50,7 +50,7 @@ const App = observer(() => {
           <ActivityIndicator
             size="large"
             animating={true}
-            color={theme.colors.anythingllm.text.primary}
+            color={theme.colors.huntkhashai.text.primary}
           />
         </SafeView>
       </SafeAreaProvider>

@@ -1,15 +1,15 @@
 {
   "project_info": {
     "project_number": "576102610354",
-    "project_id": "anythingllm-mobile",
-    "storage_bucket": "anythingllm-mobile.firebasestorage.app"
+    "project_id": "huntkhashai-mobile",
+    "storage_bucket": "huntkhashai-mobile.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:576102610354:android:369b21874e9c57673420ab",
         "android_client_info": {
-          "package_name": "com.anythingllm"
+          "package_name": "com.huntkhashai"
         }
       },
       "oauth_client": [],

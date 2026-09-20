@@ -4,7 +4,7 @@ import slugify from 'slugify';
 import { Q, Model, Relation } from '@nozbe/watermelondb';
 import { generateUUID } from '@/utils/constants';
 import Workspace, { type WorkspaceType } from './Workspace';
-import AnythingLLMExternal from '@/utils/AnythingLLMExternal';
+import HuntKHashAIExternal from '@/utils/HuntKHashAIExternal';
 import { showToast } from '@/utils/Notification';
 import uiStore from '@/store/UIStore';
 import truncate from 'truncate';
@@ -90,7 +90,7 @@ export default class WorkspaceThread extends Model {
       remoteServerReachable: async (): Promise<boolean> => {
         if (!isRemote || !remoteConfig) return false;
         try {
-          const external = new AnythingLLMExternal(remoteConfig.connectionUrl, remoteConfig.deviceToken);
+          const external = new HuntKHashAIExternal(remoteConfig.connectionUrl, remoteConfig.deviceToken);
           const response = await external.tokenIsApproved();
           return response;
         } catch (error) {
@@ -150,7 +150,7 @@ export default class WorkspaceThread extends Model {
     // If the parent workspace is remote, create the thread in the remote workspace as well
     // If the remote instance is not reachable then we will throw an error to keep the threads from being out of sync
     if (parentWorkspace?.isRemote) {
-      const externalModule = new AnythingLLMExternal(parentWorkspace.remoteConfig.connectionUrl, parentWorkspace.remoteConfig.deviceToken);
+      const externalModule = new HuntKHashAIExternal(parentWorkspace.remoteConfig.connectionUrl, parentWorkspace.remoteConfig.deviceToken);
       const parentWorkspaceSlug = parentWorkspace.remoteConfig.slug;
       const { thread: fkThread } = await externalModule.sendCommand('new-thread', { workspaceSlug: parentWorkspaceSlug });
       this.log('Created thread in remote workspace', { fkThread });

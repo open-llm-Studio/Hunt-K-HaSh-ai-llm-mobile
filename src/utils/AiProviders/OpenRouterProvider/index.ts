@@ -62,12 +62,12 @@ class OpenRouterProvider extends BaseOpenAILikeProvider {
     this.client = new OpenAILite({
       apiKey: this.apiKey,
       baseURL: this.baseURL,
-      // App attribution so usage shows up under AnythingLLM on openrouter.ai/rankings
+      // App attribution so usage shows up under Hunt-K-HaSh AI on openrouter.ai/rankings
       // - same headers the desktop server sends (utils/AiProviders/openRouter).
       // https://openrouter.ai/docs/api-reference/overview#headers
       defaultHeaders: {
-        'HTTP-Referer': 'https://anythingllm.com',
-        'X-Title': 'AnythingLLM Mobile',
+        'HTTP-Referer': 'https://github.com/open-llm-Studio/Hunt-K-HaSh-AI',
+        'X-Title': 'Hunt-K-HaSh AI Mobile',
       },
     });
     this.log(`${this.connectionProvider} initialized with model ${this.model}`);

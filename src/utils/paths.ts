@@ -1,3 +1,5 @@
+import { UPDATE_CHECK_URL } from '@env';
+
 export const PATHS = {
   onboarding: {
     welcome: 'Welcome',
@@ -15,6 +17,11 @@ export const PATHS = {
 
   connect_to_instance: 'ConnectToInstance',
 
-  remote_version_url: 'https://cdn.anythingllm.com/mobile/latest/version.txt',
-  google_play_store: 'https://play.google.com/store/apps/details?id=com.anythingllm',
+  /**
+   * Where the app checks whether a newer build exists. Upstream pointed this at
+   * Mintplex Labs' CDN, so opening settings told them an install existed. Point
+   * it at your own release feed to switch the check back on; empty disables it.
+   */
+  remote_version_url: UPDATE_CHECK_URL ?? '',
+  google_play_store: 'https://play.google.com/store/apps/details?id=com.huntkhashai',
 };

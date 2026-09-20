@@ -70,7 +70,7 @@ export default function TopBar({
           onPress={registerPress}
           className="flex flex-col items-center gap-y-0">
           <Image
-            source={require('@/assets/logo/anything-llm.png')}
+            source={require('@/assets/logo/hunt-k-hash-ai.png')}
             style={{
               width: 150,
               height: 50,

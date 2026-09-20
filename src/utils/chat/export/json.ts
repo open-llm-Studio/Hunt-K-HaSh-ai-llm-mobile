@@ -104,7 +104,7 @@ export function buildThreadJson(ctx: ThreadExportContext): ThreadExportJson {
 
   return {
     version: THREAD_EXPORT_JSON_VERSION,
-    app: 'AnythingLLM Mobile',
+    app: 'Hunt-K-HaSh AI Mobile',
     exportedAt: new Date(exportedAt).toISOString(),
     workspace: { name: workspace.name, slug: workspace.slug, isRemote: !!workspace.isRemote },
     thread: { name: thread.name, slug: thread.slug, createdAt: toIso(thread.createdAt) },

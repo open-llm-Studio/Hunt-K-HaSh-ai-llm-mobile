@@ -1,4 +1,4 @@
-import AnythingLLMExternal, { CommandResponses } from "@/utils/AnythingLLMExternal";
+import HuntKHashAIExternal, { CommandResponses } from "@/utils/HuntKHashAIExternal";
 import { formatNumber } from "@/utils/formatters";
 import { CheckCircle, Cloud, Laptop } from "phosphor-react-native";
 import { useEffect, useState } from "react";
@@ -7,7 +7,7 @@ import { syncFromRemote } from "./sync";
 
 type IStatus = 'idle' | 'syncing' | 'synced' | 'error';
 interface WorkspaceItemProps {
-    module: AnythingLLMExternal;
+    module: HuntKHashAIExternal;
     workspace: CommandResponses['workspaces']['workspaces'][number];
 }
 
@@ -33,7 +33,7 @@ export default function WorkspaceItem({ module, workspace }: WorkspaceItemProps)
     );
 }
 
-function SyncButton({ module, workspace }: { module: AnythingLLMExternal, workspace: CommandResponses['workspaces']['workspaces'][number] }) {
+function SyncButton({ module, workspace }: { module: HuntKHashAIExternal, workspace: CommandResponses['workspaces']['workspaces'][number] }) {
     const [status, setStatus] = useState<IStatus>('idle');
 
     // Reset status after 5 seconds if there is an error so they can try again

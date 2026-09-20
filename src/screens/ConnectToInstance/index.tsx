@@ -2,7 +2,7 @@ import useRedirect from "@/hooks/useRedirect";
 import { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import uiStore from "@/store/UIStore";
-import AnythingLLMExternal from "@/utils/AnythingLLMExternal";
+import HuntKHashAIExternal from "@/utils/HuntKHashAIExternal";
 
 import { MainView } from "./Main";
 import { VerifyView } from "./Verify";
@@ -28,7 +28,7 @@ export default function ConnectToInstance() {
 
   useEffect(() => {
     async function getPage() {
-      const externalConnection = await uiStore.getFromStorage('current_anythingllm_external_connection', null) as IExternalConnection | null;
+      const externalConnection = await uiStore.getFromStorage('current_huntkhashai_external_connection', null) as IExternalConnection | null;
       if (externalConnection) {
         setPage({ key: 'import', params: { ...route?.params ?? {}, connectionUrl: externalConnection.connectionUrl, deviceToken: externalConnection.token } });
       } else {
@@ -43,15 +43,15 @@ export default function ConnectToInstance() {
 }
 
 /**
- * Unregister a connection from the AnythingLLM instance
+ * Unregister a connection from the Hunt-K-HaSh AI instance
  * - Removes the connection from the local storage + the current connection
- * - Sends a command to the AnythingLLM instance to unregister the device (blindly)
+ * - Sends a command to the Hunt-K-HaSh AI instance to unregister the device (blindly)
  */
 export async function unregisterConnection(connection: IExternalConnection): Promise<IExternalConnection[]> {
-  const connections = await uiStore.getFromStorage('anythingllm_external_connections', []) as IExternalConnection[];
+  const connections = await uiStore.getFromStorage('huntkhashai_external_connections', []) as IExternalConnection[];
   const newConnections = connections.filter((c) => c.token !== connection.token);
-  await uiStore.removeFromStorage('current_anythingllm_external_connection');
-  await uiStore.setToStorage('anythingllm_external_connections', newConnections);
-  try { await (new AnythingLLMExternal(connection.connectionUrl, connection.token)).sendCommand('unregister-device'); } catch { }
+  await uiStore.removeFromStorage('current_huntkhashai_external_connection');
+  await uiStore.setToStorage('huntkhashai_external_connections', newConnections);
+  try { await (new HuntKHashAIExternal(connection.connectionUrl, connection.token)).sendCommand('unregister-device'); } catch { }
   return newConnections;
 }

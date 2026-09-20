@@ -97,10 +97,10 @@ export default function DevToolsMenu() {
   const clearExternalConnections = () =>
     confirmThen(
       'Clear connections',
-      'Removes every saved AnythingLLM instance connection, including the active one.',
+      'Removes every saved Hunt-K-HaSh AI instance connection, including the active one.',
       async () => {
-        await uiStore.removeFromStorage('current_anythingllm_external_connection');
-        await uiStore.removeFromStorage('anythingllm_external_connections');
+        await uiStore.removeFromStorage('current_huntkhashai_external_connection');
+        await uiStore.removeFromStorage('huntkhashai_external_connections');
       },
       'External connections cleared',
     );
@@ -180,7 +180,7 @@ export default function DevToolsMenu() {
                 />
                 <Row
                   title="Clear external connections"
-                  subtitle="Remove all saved AnythingLLM instance connections"
+                  subtitle="Remove all saved Hunt-K-HaSh AI instance connections"
                   icon={<Plugs size={20} color={DEV_COLORS.danger} />}
                   danger
                   onPress={clearExternalConnections}

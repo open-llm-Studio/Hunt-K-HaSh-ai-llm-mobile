@@ -61,7 +61,7 @@ export default function Survey() {
 
           <React.Fragment>
             <View className="flex flex-col gap-y-4 justify-center items-center">
-              <Text className="text-white text-4xl font-bold text-center">What can AnythingLLM help you with?</Text>
+              <Text className="text-white text-4xl font-bold text-center">What can Hunt-K-HaSh AI help you with?</Text>
               <Text className="text-white/60 text-xl text-center">
                 Select the one that most applies to you.
               </Text>

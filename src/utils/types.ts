@@ -141,7 +141,7 @@ export interface ThemeSpacing {
   default: number;
 }
 
-export interface AnythingLLMColorways {
+export interface HuntKHashAIColorways {
   background: {
     primary: string;
     secondary: string;
@@ -155,7 +155,7 @@ export interface AnythingLLMColorways {
 }
 
 export interface Theme extends MD3Theme {
-  colors: MD3BaseColors & SemanticColors & { anythingllm: AnythingLLMColorways };
+  colors: MD3BaseColors & SemanticColors & { huntkhashai: HuntKHashAIColorways };
   borders: ThemeBorders;
   spacing: ThemeSpacing;
   fonts: ThemeFonts;
@@ -166,7 +166,7 @@ export interface Theme extends MD3Theme {
 export enum ModelOrigin {
   PRESET = 'preset',
   LOCAL = 'local',
-  ANYTHINGLLM = 'anythingllm',
+  HUNTKHASHAI = 'huntkhashai',
   HF = 'hf',
 }
 

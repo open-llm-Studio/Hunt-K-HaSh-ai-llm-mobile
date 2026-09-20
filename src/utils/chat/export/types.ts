@@ -61,7 +61,7 @@ export const EXPORT_FORMATS: Record<ExportFormat, ExportFormatDefinition> = {
 
 /** The line appended to the bottom of every transcript */
 export function generatedWithLine(modelName: string | null): string {
-  return modelName ? `Chats generated with ${modelName}` : 'Chats generated with AnythingLLM';
+  return modelName ? `Chats generated with ${modelName}` : 'Chats generated with Hunt-K-HaSh AI';
 }
 
 export function formatExportDate(ms: number): string {

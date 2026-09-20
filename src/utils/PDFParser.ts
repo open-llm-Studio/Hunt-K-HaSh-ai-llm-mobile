@@ -23,7 +23,7 @@ interface PdfParserModuleInterface {
  * PDFParser is a singleton class that provides a wrapper around the PdfParserModule native module.
  * It is used to extract text from PDF files on the device.
  *
- * @see android/app/src/main/java/com/anythingllm/pdfparser/PdfParserModule.kt
+ * @see android/app/src/main/java/com/huntkhashai/pdfparser/PdfParserModule.kt
  */
 class PDFParser {
     private static instance: PDFParser;

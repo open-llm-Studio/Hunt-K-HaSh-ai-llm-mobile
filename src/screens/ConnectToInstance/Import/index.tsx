@@ -6,9 +6,9 @@ import useHighjackBackButtonPress from "@/hooks/useHighjackBackButtonPress";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { PATHS } from "@/utils/paths";
-import AnythingLLMExternal from "@/utils/AnythingLLMExternal";
+import HuntKHashAIExternal from "@/utils/HuntKHashAIExternal";
 import WorkspaceItem from "./WorkspaceItem";
-import { CommandResponses } from "@/utils/AnythingLLMExternal";
+import { CommandResponses } from "@/utils/HuntKHashAIExternal";
 import uiStore from "@/store/UIStore";
 import { showToast } from "@/utils/Notification";
 import { unregisterConnection } from "../index";
@@ -22,12 +22,12 @@ export function ImportView({ params }: ImportViewProps) {
     const insets = useSafeAreaInsets();
     const navigation = useNavigation();
 
-    const [module, setModule] = useState<AnythingLLMExternal | null>(null);
+    const [module, setModule] = useState<HuntKHashAIExternal | null>(null);
     const [workspaces, setWorkspaces] = useState<CommandResponses['workspaces']['workspaces']>([]);
     const [refreshing, setRefreshing] = useState(false);
 
     const goBack = () => {
-        uiStore.removeFromStorage('current_anythingllm_external_connection');
+        uiStore.removeFromStorage('current_huntkhashai_external_connection');
         navigation.reset({
             index: 0,
             // @ts-ignore
@@ -39,13 +39,13 @@ export function ImportView({ params }: ImportViewProps) {
 
     async function getWorkspaces() {
         if (!params?.connectionUrl || !params?.deviceToken) return;
-        const module = new AnythingLLMExternal(params.connectionUrl, params.deviceToken);
+        const module = new HuntKHashAIExternal(params.connectionUrl, params.deviceToken);
         setModule(module);
 
         const validateConnection = await module.tokenIsApproved();
         if (!validateConnection) {
-            showToast('Your existing connection to AnythingLLM Desktop expired.', 'short');
-            await uiStore.removeFromStorage('current_anythingllm_external_connection');
+            showToast('Your existing connection to Hunt-K-HaSh AI Desktop expired.', 'short');
+            await uiStore.removeFromStorage('current_huntkhashai_external_connection');
             await unregisterConnection({ connectionUrl: params.connectionUrl, token: params.deviceToken, platform: 'desktop' });
             navigation.reset({
                 index: 0,
@@ -85,7 +85,7 @@ export function ImportView({ params }: ImportViewProps) {
                 <TouchableOpacity onPress={goBack} className="absolute top-8 left-0 flex flex-row items-center gap-2">
                     <ArrowLeft size={24} color="#FFF" weight="bold" />
                 </TouchableOpacity>
-                <Text style={{ maxWidth: '80%' }} numberOfLines={1} ellipsizeMode="middle" className="text-white text-lg font-medium">Connect to AnythingLLM</Text>
+                <Text style={{ maxWidth: '80%' }} numberOfLines={1} ellipsizeMode="middle" className="text-white text-lg font-medium">Connect to Hunt-K-HaSh AI</Text>
             </View>
             <ScrollView
                 style={{ flex: 1 }}
@@ -100,12 +100,12 @@ export function ImportView({ params }: ImportViewProps) {
                     />
                 }
             >
-                {workspaces.map((workspace) => <WorkspaceItem key={workspace.id} module={module as AnythingLLMExternal} workspace={workspace} />)}
+                {workspaces.map((workspace) => <WorkspaceItem key={workspace.id} module={module as HuntKHashAIExternal} workspace={workspace} />)}
             </ScrollView>
             <View style={{ paddingBottom: insets.bottom - 8, paddingHorizontal: 30, paddingTop: 8 }} className="w-full flex flex-row items-center justify-center">
                 <TouchableOpacity
                     onPress={async () => {
-                        await uiStore.removeFromStorage('current_anythingllm_external_connection');
+                        await uiStore.removeFromStorage('current_huntkhashai_external_connection');
                         uiStore.emitter.emit(uiStore.globalEvents.REFRESH_WORKSPACES);
                         navigation.reset({
                             index: 0,

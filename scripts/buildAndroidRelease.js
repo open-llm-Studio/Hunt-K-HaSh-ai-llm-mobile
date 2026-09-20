@@ -86,15 +86,15 @@ try {
     const apksOutputPath = `android/app/build/outputs/apks/app-release-v${version}-universal.apks`;
 
     console.log('Validating keystore files exist...');
-    const keystorePath = 'android/app/anythingllm-upload-key.keystore';
+    const keystorePath = 'android/app/huntkhashai-upload-key.keystore';
     const keystorePassword = process.env.APP_RELEASE_STORE_PASSWORD;
-    const keystoreAlias = 'anythingllm-keystore';
+    const keystoreAlias = 'huntkhashai-keystore';
     if (!keystorePassword) {
         console.error('APP_RELEASE_STORE_PASSWORD environment variable is not set.');
         process.exit(1);
     }
     if (!fs.existsSync(keystorePath)) {
-        console.error('Keystore file not found. Please ensure the keystore file exists at android/app/anythingllm-upload-key.keystore');
+        console.error('Keystore file not found. Please ensure the keystore file exists at android/app/huntkhashai-upload-key.keystore');
         process.exit(1);
     }
 
@@ -127,7 +127,7 @@ try {
 
     // Rename the APK to app-release-v${version}-universal.apk
     const apkPath = path.join(outputDir, `universal.apk`);
-    fs.renameSync(apkPath, path.join(outputDir, `anythingllm-universal.apk`));
+    fs.renameSync(apkPath, path.join(outputDir, `huntkhashai-universal.apk`));
 
     // Clean up zip file
     fs.unlinkSync(zipPath);
@@ -140,24 +140,24 @@ try {
     // Create release folder
     const releaseFolder = `release/v${version}`;
     if (!fs.existsSync(releaseFolder)) fs.mkdirSync(releaseFolder, { recursive: true });
-    fs.copyFileSync(aabPath, path.join(releaseFolder, `anythingllm-v${version}.aab`));
+    fs.copyFileSync(aabPath, path.join(releaseFolder, `huntkhashai-v${version}.aab`));
 
     // Copy APK to mobile/latest/**
     const latestFolder = path.join(releaseFolder, `mobile/latest`);
     if (!fs.existsSync(latestFolder)) fs.mkdirSync(latestFolder, { recursive: true });
-    fs.copyFileSync(path.join(outputDir, `anythingllm-universal.apk`), path.join(latestFolder, `anythingllm-universal.apk`));
+    fs.copyFileSync(path.join(outputDir, `huntkhashai-universal.apk`), path.join(latestFolder, `huntkhashai-universal.apk`));
     fs.writeFileSync(path.join(latestFolder, `version.txt`), version);
 
     // Copy APK to mobile/legacy/{version}/**
     const legacyFolder = path.join(releaseFolder, `mobile/legacy/${version}`);
     if (!fs.existsSync(legacyFolder)) fs.mkdirSync(legacyFolder, { recursive: true });
-    fs.copyFileSync(path.join(outputDir, `anythingllm-universal.apk`), path.join(legacyFolder, `anythingllm-universal.apk`));
+    fs.copyFileSync(path.join(outputDir, `huntkhashai-universal.apk`), path.join(legacyFolder, `huntkhashai-universal.apk`));
     fs.writeFileSync(path.join(legacyFolder, `version.txt`), version);
 
     console.log(`✅ Android release build completed successfully!`);
     console.log(`📱 Universal APK extracted to: ${releaseFolder}`);
-    console.log(`📦 AAB bundle: ${path.join(releaseFolder, `anythingllm-v${version}.aab`)}`);
-    console.log(`🎯 Final APK: ${path.join(releaseFolder, `anythingllm-universal.apk`)}`);
+    console.log(`📦 AAB bundle: ${path.join(releaseFolder, `huntkhashai-v${version}.aab`)}`);
+    console.log(`🎯 Final APK: ${path.join(releaseFolder, `huntkhashai-universal.apk`)}`);
 } catch (error) {
     console.error('❌ Build failed:', error);
     process.exit(1);

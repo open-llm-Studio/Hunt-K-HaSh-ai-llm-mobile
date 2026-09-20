@@ -15,7 +15,7 @@ import { EXPORT_FORMATS, type ExportFormat, type ThreadExportContext } from './t
 
 export { EXPORT_FORMATS, type ExportFormat, type ThreadExportContext } from './types';
 
-/** iOS: a folder inside the app's Documents directory, which the Files app exposes as "On My iPhone > AnythingLLM" */
+/** iOS: a folder inside the app's Documents directory, which the Files app exposes as "On My iPhone > Hunt-K-HaSh AI" */
 const IOS_EXPORT_FOLDER_PATH = `${RNFS.DocumentDirectoryPath}/Exports`;
 
 export type SavedThreadExport = {
@@ -113,7 +113,7 @@ async function resolveExportDirectory(): Promise<{ path: string; locationLabel: 
     await ensureAndroidStoragePermission();
     return { path: RNFS.DownloadDirectoryPath, locationLabel: 'Downloads' };
   }
-  return { path: IOS_EXPORT_FOLDER_PATH, locationLabel: 'Files > On My iPhone > AnythingLLM > Exports' };
+  return { path: IOS_EXPORT_FOLDER_PATH, locationLabel: 'Files > On My iPhone > Hunt-K-HaSh AI > Exports' };
 }
 
 /**
@@ -124,7 +124,7 @@ async function ensureAndroidStoragePermission(): Promise<void> {
   if (Platform.OS !== 'android' || Platform.Version >= 29) return;
   const status = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE, {
     title: 'Save to Downloads',
-    message: 'AnythingLLM needs storage access to save the exported thread to your Downloads folder.',
+    message: 'Hunt-K-HaSh AI needs storage access to save the exported thread to your Downloads folder.',
     buttonPositive: 'Allow',
     buttonNegative: 'Cancel',
   });

@@ -88,12 +88,12 @@ const UTILITY_LINKS: SupportLink[] = [
 const LEGAL_LINKS: SupportLink[] = [
   {
     title: 'Terms of Service',
-    link: 'https://docs.anythingllm.com/mobile/terms',
+    link: 'https://open-llm-studio.github.io/Hunt-K-HaSh-AI/mobile/terms',
     icon: <FileText size={18} color="#FFF" />,
   },
   {
     title: 'Privacy Policy',
-    link: 'https://docs.anythingllm.com/mobile/privacy',
+    link: 'https://open-llm-studio.github.io/Hunt-K-HaSh-AI/mobile/privacy',
     icon: <FileLock size={18} color="#FFF" />,
   },
 ]
@@ -114,10 +114,10 @@ export function MainView({ goToPage }: MainViewProps) {
     });
     return true;
   }
-  async function resetAnythingLLM() {
+  async function resetHuntKHashAI() {
     const confirm = await AwaitableAlert(
-      'Reset AnythingLLM',
-      `Are you sure you want to reset AnythingLLM? This will delete all your workspaces, chats, installed models, and preferences.`,
+      'Reset Hunt-K-HaSh AI',
+      `Are you sure you want to reset Hunt-K-HaSh AI? This will delete all your workspaces, chats, installed models, and preferences.`,
       { text: 'Cancel', style: 'cancel' },
       { text: 'Yes, Reset Everything', style: 'destructive' },
     );
@@ -221,7 +221,7 @@ export function MainView({ goToPage }: MainViewProps) {
             </Text>
           </View>
 
-          {/* About AnythingLLM */}
+          {/* About Hunt-K-HaSh AI */}
           <View className="w-full flex flex-col" style={{ gap: 12 }}>
             <ApkVersion />
             <View
@@ -316,11 +316,11 @@ export function MainView({ goToPage }: MainViewProps) {
 
         <View className="w-full flex flex-col" style={{ gap: 12 }}>
           <TouchableOpacity
-            onPress={resetAnythingLLM}
+            onPress={resetHuntKHashAI}
             style={{ backgroundColor: 'rgba(122,39,26,0.2)' }}
             className="flex flex-row items-center justify-center rounded-lg p-4 mb-4">
             <Text style={{ color: '#F97066' }} className="text-lg font-medium">
-              Reset AnythingLLM
+              Reset Hunt-K-HaSh AI
             </Text>
           </TouchableOpacity>
         </View>

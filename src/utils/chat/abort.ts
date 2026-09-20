@@ -6,7 +6,7 @@
  * signal to the active provider, which binds it to the underlying transport:
  *  - OpenAI-like providers: the fetch `signal` of every chat completion request
  *  - on-device llama.rn: `stopCompletion()` on the native context
- *  - remote AnythingLLM instance: closing the SSE connection (the server aborts on `close`)
+ *  - remote Hunt-K-HaSh AI instance: closing the SSE connection (the server aborts on `close`)
  *
  * Mirrors `server/utils/helpers/abortSignals.js` in the desktop app.
  */

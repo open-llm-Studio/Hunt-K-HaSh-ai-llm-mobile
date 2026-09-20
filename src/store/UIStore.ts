@@ -11,8 +11,8 @@ export type StorageKeys =
   'onboarding_data_handling_completed' |
   'llmPreference' |
   'tools' |
-  'current_anythingllm_external_connection' |
-  'anythingllm_external_connections' |
+  'current_huntkhashai_external_connection' |
+  'huntkhashai_external_connections' |
   'hf_imported_models' |
   'provider_config_cache';
 
@@ -45,8 +45,8 @@ export class UIStore {
     'onboarding_data_handling_completed',
     'llmPreference',
     'tools',
-    'current_anythingllm_external_connection',
-    'anythingllm_external_connections',
+    'current_huntkhashai_external_connection',
+    'huntkhashai_external_connections',
     'hf_imported_models',
     'provider_config_cache',
   ] as const;

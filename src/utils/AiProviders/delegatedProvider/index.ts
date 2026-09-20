@@ -2,7 +2,7 @@ import { IStreamCallback } from "../baseOpenAILikeProvider";
 import { IOnDeviceStreamCallback } from "../onDevice";
 import EventSource from "react-native-sse";
 import { getOrigin, safeJsonParse } from "@/utils/formatters";
-import AnythingLLMExternal, { CommandBodies, CommandResponses, Commands } from "@/utils/AnythingLLMExternal";
+import HuntKHashAIExternal, { CommandBodies, CommandResponses, Commands } from "@/utils/HuntKHashAIExternal";
 import { IAgentCitation, IAgentWebSearchCitation, IChatCitation, IDocumentCitation } from "@/database/models/WorkspaceChat";
 import { ChatAbortedError, throwIfAborted } from "@/utils/chat/abort";
 
@@ -22,14 +22,14 @@ type IStreamChatConfig = {
     message: string;
     onStream: IStreamCallback | IOnDeviceStreamCallback;
     /**
-     * Aborting closes the SSE connection. The AnythingLLM server cancels the in-flight
+     * Aborting closes the SSE connection. The Hunt-K-HaSh AI server cancels the in-flight
      * LLM request when the response closes (`abortConnectorOnClientDisconnect`), so this
      * is a real stop on the remote side, not just the phone no longer listening.
      */
     signal?: AbortSignal | null;
 }
 
-type AnythingLLMExternalSource = {
+type HuntKHashAIExternalSource = {
     id: string;
     url: string;
     title: string;
@@ -45,7 +45,7 @@ type AnythingLLMExternalSource = {
 }
 
 /**
- * Specialized provider that delegates the chat to a remote AnythingLLM server/client to handle the chat.
+ * Specialized provider that delegates the chat to a remote Hunt-K-HaSh AI server/client to handle the chat.
  * This is specifically for device-to-device communication so the user on mobile can relay the chat to the server and so forth.
  */
 class DelegatedProvider {
@@ -57,7 +57,7 @@ class DelegatedProvider {
 
     /**
      * Validate the configuration for the delegated provider.
-     * This will test the connection to the AnythingLLM server and validate the credentials.
+     * This will test the connection to the Hunt-K-HaSh AI server and validate the credentials.
      * Since the connection is likely local LAN, we check each time.
      */
     static async validateConfig(config: DelegatedProviderConfig) {
@@ -69,9 +69,9 @@ class DelegatedProvider {
         if (!connectionUrl) errors.push('connectionUrl is required');
 
         try {
-            const module = new AnythingLLMExternal(connectionUrl, deviceToken);
+            const module = new HuntKHashAIExternal(connectionUrl, deviceToken);
             const validateConnection = await module.tokenIsApproved();
-            if (!validateConnection) errors.push('Failed to connect to the AnythingLLM server with URL and credential information');
+            if (!validateConnection) errors.push('Failed to connect to the Hunt-K-HaSh AI server with URL and credential information');
         } catch (error) {
             errors.push(error instanceof Error ? error.message : 'Test connection failed');
         }
@@ -81,7 +81,7 @@ class DelegatedProvider {
     }
 
     /**
-    * Handles the remote chat configuration by sending the message to an AnythingLLM server running on LAN
+    * Handles the remote chat configuration by sending the message to an Hunt-K-HaSh AI server running on LAN
     * This will come back as an SSE stream of events
     */
     async streamChat({
@@ -100,7 +100,7 @@ class DelegatedProvider {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    [AnythingLLMExternal.HEADER_AUTH_TOKEN]: deviceToken,
+                    [HuntKHashAIExternal.HEADER_AUTH_TOKEN]: deviceToken,
                 },
                 body: JSON.stringify({
                     workspaceSlug,
@@ -110,13 +110,13 @@ class DelegatedProvider {
             });
 
             const onAbort = () => {
-                this.log("Chat aborted by user - closing SSE connection to AnythingLLM");
+                this.log("Chat aborted by user - closing SSE connection to Hunt-K-HaSh AI");
                 reject(new ChatAbortedError());
                 es.close();
             };
             signal?.addEventListener("abort", onAbort, { once: true });
 
-            es.addEventListener("open", () => this.log("Opened SSE connection to AnythingLLM"));
+            es.addEventListener("open", () => this.log("Opened SSE connection to Hunt-K-HaSh AI"));
             es.addEventListener("message", (event) => {
                 const data = safeJsonParse(event.data || '{}');
                 switch (data.type) {
@@ -158,7 +158,7 @@ class DelegatedProvider {
             });
 
             es.addEventListener("close", () => {
-                this.log("Closed SSE connection to AnythingLLM");
+                this.log("Closed SSE connection to Hunt-K-HaSh AI");
                 signal?.removeEventListener("abort", onAbort);
                 es.removeAllEventListeners();
                 resolve();
@@ -167,11 +167,11 @@ class DelegatedProvider {
     }
 
     /**
-     * Convert the sources reported from the AnythingLLM Server API into mobile-friendly citation formats
+     * Convert the sources reported from the Hunt-K-HaSh AI Server API into mobile-friendly citation formats
      */
-    private parseSourcesFromResponse(data: { sources: AnythingLLMExternalSource[] }): IChatCitation[] {
+    private parseSourcesFromResponse(data: { sources: HuntKHashAIExternalSource[] }): IChatCitation[] {
         if (!data?.sources) return [];
-        return data.sources.map((source: AnythingLLMExternalSource) => {
+        return data.sources.map((source: HuntKHashAIExternalSource) => {
             // Remove the metadata from the text chunk if it exists
             const metadataFilteredText = source.text.replace(/<document_metadata>[\s\S]*?<\/document_metadata>/g, '').trim()
 
@@ -206,7 +206,7 @@ class DelegatedProvider {
     // 
     static async sendCommand(config: { connectionUrl: string, deviceToken: string }, command: Commands, body: CommandBodies[Commands]): Promise<CommandResponses[Commands]> {
         const { connectionUrl, deviceToken } = config;
-        const module = new AnythingLLMExternal(connectionUrl, deviceToken);
+        const module = new HuntKHashAIExternal(connectionUrl, deviceToken);
         return module.sendCommand(command, body);
     }
 }

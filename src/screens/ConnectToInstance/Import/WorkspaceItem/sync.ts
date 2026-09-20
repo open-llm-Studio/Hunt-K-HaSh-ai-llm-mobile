@@ -4,7 +4,7 @@ import { generateUUID } from "@/utils/constants";
 import { safeJsonParse } from "@/utils/formatters";
 import { parseThinkingParts } from "@/utils/chat";
 import { showToast } from "@/utils/Notification";
-import AnythingLLMExternal, { CommandResponses } from "@/utils/AnythingLLMExternal";
+import HuntKHashAIExternal, { CommandResponses } from "@/utils/HuntKHashAIExternal";
 import WorkspaceChat, { WorkspaceChatType } from "@/database/models/WorkspaceChat";
 import Telemetry from "@/utils/Telemetry";
 
@@ -18,7 +18,7 @@ export async function syncFromRemote({
     workspace,
     setStatus,
 }: {
-    module: AnythingLLMExternal;
+    module: HuntKHashAIExternal;
     workspace: CommandResponses['workspaces']['workspaces'][number];
     setStatus: (status: 'syncing' | 'synced' | 'error') => void;
 }) {

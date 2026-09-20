@@ -1,4 +1,5 @@
 import { IStreamEvent } from "@/utils/AiProviders/baseOpenAILikeProvider";
+import { GEOLOCATION_API_URL } from "@env";
 
 export type ILocation = {
     country: string;
@@ -44,9 +45,19 @@ export default {
             return 'Error getting location';
         }
     },
+    /**
+     * Upstream resolved the device's location through an endpoint run by
+     * Mintplex Labs, which meant the device's IP address was sent to a third
+     * party whenever an agent asked where the user was. It now only calls a
+     * service you configure, and does nothing when none is set.
+     */
     _getLocation: async function (): Promise<ILocation | null> {
+        if (!GEOLOCATION_API_URL) {
+            console.log('No geolocation service is configured - skipping the lookup.');
+            return null;
+        }
         try {
-            const location = await fetch('https://geojson.anythingllm.com');
+            const location = await fetch(GEOLOCATION_API_URL);
             const data = await location.json();
             return data;
         } catch (error) {
