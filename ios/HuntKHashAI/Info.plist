@@ -4,15 +4,6 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
-	<!-- Firebase Analytics gathers sessions and screen views by itself, not
-	     only through explicit events, so it is switched off at the SDK level as
-	     well as in the application code. -->
-	<key>FIREBASE_ANALYTICS_COLLECTION_ENABLED</key>
-	<false/>
-	<key>FIREBASE_ANALYTICS_COLLECTION_DEACTIVATED</key>
-	<true/>
-	<key>GOOGLE_ANALYTICS_ADID_COLLECTION_ENABLED</key>
-	<false/>
 	<key>CFBundleDisplayName</key>
 	<string>Hunt-K-HaSh AI</string>
 	<key>CFBundleExecutable</key>

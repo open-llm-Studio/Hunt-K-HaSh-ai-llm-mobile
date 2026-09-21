@@ -58,30 +58,46 @@ telling that CDN an install existed each time it was opened.
 
 **Changed.** The check uses `UPDATE_CHECK_URL`; empty disables it.
 
-## Still open — needs a decision
+## Found: Firebase SDK tied to Mintplex's project — removed
 
-### 1. `android/app/google-services.json` is Mintplex's Firebase project
+Even with analytics disabled, the Firebase SDK stayed in the app, configured by
+`android/app/google-services.json` for Mintplex Labs' Firebase project
+(`anythingllm-mobile`). Firebase Installations can contact
+`firebaseinstallations.googleapis.com` on start-up regardless of the analytics
+settings, and nothing in the app used Firebase.
 
-It still carries their `project_id` (`anythingllm-mobile`), project number and
-API key. It was left in place because the Android build fails without it: the
-`google-services` Gradle plugin requires the file.
+**Changed.** Firebase is gone:
 
-With analytics off nothing is reported, but this should not ship as is. Pick one:
+- `@react-native-firebase/app` and `@react-native-firebase/analytics` removed
+  from `package.json`
+- the `com.google.gms.google-services` Gradle plugin removed from both
+  `build.gradle` files
+- `android/app/google-services.json` and `firebase.json` deleted, and the
+  Fastlane step that wrote `google-services.json` from a secret removed
+- the Firebase flags removed from `AndroidManifest.xml` and `Info.plist`, and
+  the unused `APPCHECK_DEBUG_TOKEN_*` env keys removed
 
-- **Remove Firebase entirely** — drop `@react-native-firebase/*`, the Gradle
-  plugin and the App Check pods. Cleanest if you do not need App Check.
-- **Use your own Firebase project** — replace `google-services.json` (and add
-  `GoogleService-Info.plist` for iOS) with one registered for
-  `com.huntkhashai`.
+The advertising-ID permissions stay explicitly removed in
+`AndroidManifest.xml`, as a guard in case a Google library is added later.
 
-Note the app id changed to `com.huntkhashai`, so their Firebase app no longer
-matches this package in any case.
+On iOS, run `pod install` once: it removes the React Native Firebase build
+phase that CocoaPods added to `project.pbxproj`.
 
-### 2. Firebase App Check is still linked
+### Adding your own Firebase project later
 
-`Firebase/AppCheck` is in the iOS Podfile and `APPCHECK_DEBUG_TOKEN_*` env keys
-exist. App Check attests the app to Google, which is an outbound call to a third
-party even with analytics disabled. It goes away with option 1 above.
+Only if you need a Firebase feature (crash reports, push notifications). Every
+Firebase feature sends data to Google.
+
+1. Create a Firebase project and register the Android app `com.huntkhashai`
+   (and the iOS bundle id).
+2. `yarn add @react-native-firebase/app` plus the feature package you need.
+3. Add `classpath 'com.google.gms:google-services:4.4.3'` to
+   `android/build.gradle` and `apply plugin: 'com.google.gms.google-services'`
+   to `android/app/build.gradle`.
+4. Put your `google-services.json` in `android/app/` and
+   `GoogleService-Info.plist` in `ios/HuntKHashAI/`, then `pod install`.
+5. Turn off automatic collection you do not want (`firebase.json`) before
+   shipping.
 
 ## Expected outbound traffic, by design
 

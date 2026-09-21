@@ -10,9 +10,9 @@
     </queries>
 
     <!--
-      No advertising ID. The Firebase Analytics library declares these in its
-      own manifest, and Android merges library manifests into the app, so
-      leaving them out here is not enough - they have to be removed explicitly.
+      No advertising ID. Some Google libraries declare these in their own
+      manifests, and Android merges library manifests into the app, so they
+      are removed explicitly in case such a library is added later.
     -->
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove" />
     <uses-permission android:name="android.permission.ACCESS_ADSERVICES_AD_ID" tools:node="remove" />
@@ -60,16 +60,6 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
-
-      <!--
-        Firebase Analytics gathers sessions and screen views by itself, not only
-        through explicit events, so it is switched off at the SDK level as well
-        as in the application code.
-      -->
-      <meta-data android:name="firebase_analytics_collection_enabled" android:value="false" />
-      <meta-data android:name="firebase_analytics_collection_deactivated" android:value="true" />
-      <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false" />
-      <meta-data android:name="google_analytics_ssaid_collection_enabled" android:value="false" />
 
       <uses-native-library android:name="libadsprpc.so" android:required="false" />
       <uses-native-library android:name="libcdsprpc.so" android:required="false" />
