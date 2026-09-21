@@ -5,11 +5,9 @@ import {
   ArrowLeft,
   CaretRight,
   File,
-  DiscordLogo,
   FileText,
   FileLock,
   GithubLogo,
-  MoneyWavy,
   Scroll,
 } from 'phosphor-react-native';
 import { IWorkspacePageKey } from '../index';
@@ -58,19 +56,9 @@ function parsedModelName(modelName: string) {
 
 const ABOUT_LINKS: SupportLink[] = [
   {
-    title: 'Star on GitHub',
-    link: "https://github.com/Mintplex-Labs/Anything-LLM",
+    title: "View on GitHub",
+    link: "https://github.com/open-llm-Studio/Hunt-K-HaSh-ai-llm-mobile",
     icon: <GithubLogo size={18} color="#FFF" />,
-  },
-  {
-    title: 'Join the Discord',
-    link: 'https://discord.gg/6UyHPeGZAC',
-    icon: <DiscordLogo size={18} color="#FFF" />,
-  },
-  {
-    title: 'Become a Patron',
-    link: "https://donate.stripe.com/6oU9ATe44f4F1NBeSh1B601",
-    icon: <MoneyWavy size={18} color="#FFF" />,
   },
 ]
 
