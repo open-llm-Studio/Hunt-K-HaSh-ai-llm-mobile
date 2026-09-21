@@ -141,6 +141,31 @@ node ./node_modules/llama.rn/install/download-native-artifacts.js --force
 3. Run `yarn build:android:release`
 4. Output will be in the `release/` folder
 
+### Building a test APK without the release keystore
+
+Signs a release build with the debug key, so it installs on a phone for
+testing but cannot be published:
+
+```bash
+cd android
+gradlew.bat assembleRelease --init-script ../scripts/kapt-windows-tmp.gradle ^
+  -Pandroid.injected.signing.store.file=%CD%\app\debug.keystore ^
+  -Pandroid.injected.signing.store.password=android ^
+  -Pandroid.injected.signing.key.alias=androiddebugkey ^
+  -Pandroid.injected.signing.key.password=android
+```
+
+The APK lands in `android/app/build/outputs/apk/release/app-release.apk`.
+
+**On Windows**, keep `--init-script ../scripts/kapt-windows-tmp.gradle`. Without
+it the build fails in `:app:kaptReleaseKotlin` with an `AccessDeniedException`
+under `C:\WINDOWS`, because Room's annotation processor runs in a worker that
+cannot find a writable temp directory. See the script for details.
+
+Requirements: JDK 17 or 21 (the JDK bundled with recent Android Studio is too
+new for this Gradle version), and `ANDROID_HOME` pointing at the SDK. The first
+build downloads Android platform 36, NDK 27.1 and CMake if they are missing.
+
 ## Technical Overview
 
 This is a React Native application targeting Android (with iOS support planned). Key technologies:

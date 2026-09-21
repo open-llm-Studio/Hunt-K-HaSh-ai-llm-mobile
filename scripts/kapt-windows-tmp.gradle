@@ -1,0 +1,23 @@
+// Gradle init script for building on Windows.
+//
+// Room's annotation processor unpacks a native SQLite library into a temp
+// directory. kapt runs it in a separate worker JVM that does not inherit the
+// daemon's temp directory, and on Windows that worker falls back to C:\WINDOWS,
+// which is not writable - the build then fails in :app:kaptReleaseKotlin with
+// "AccessDeniedException ... sqlitejdbc.dll.lck".
+//
+// Usage:
+//   gradlew.bat assembleRelease --init-script ../scripts/kapt-windows-tmp.gradle
+//
+// The temp directory defaults to the user's temp folder; set HKH_BUILD_TMP to
+// use another one.
+def tmp = System.getenv("HKH_BUILD_TMP") ?: System.getProperty("java.io.tmpdir")
+
+allprojects {
+    tasks.matching { it.class.name.contains("KaptWithoutKotlincTask") }.configureEach { task ->
+        task.kaptProcessJvmArgs.addAll([
+            "-Djava.io.tmpdir=${tmp}".toString(),
+            "-Dorg.sqlite.tmpdir=${tmp}".toString(),
+        ])
+    }
+}

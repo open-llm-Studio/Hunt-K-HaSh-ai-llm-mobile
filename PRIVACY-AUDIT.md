@@ -25,8 +25,12 @@ too:
 
 - `firebase.json` — `analytics_auto_collection_enabled: false`,
   `analytics_collection_deactivated: true`, ad-ID and screen reporting off
-- `android/.../AndroidManifest.xml` — the same flags, and the
-  `com.google.android.gms.permission.AD_ID` permission is no longer requested
+- `android/.../AndroidManifest.xml` — the same flags, and the advertising-ID
+  permissions (`AD_ID`, `ACCESS_ADSERVICES_AD_ID`,
+  `ACCESS_ADSERVICES_ATTRIBUTION`) are removed with `tools:node="remove"`.
+  Deleting them from our manifest is not enough: the Firebase library declares
+  them itself and Android merges library manifests into the app. Verified
+  against the built APK with `aapt2 dump badging` — none are requested.
 - `ios/HuntKHashAI/Info.plist` — `FIREBASE_ANALYTICS_COLLECTION_DEACTIVATED`
 
 ## Found: web searches sent to a Mintplex server — now opt-in

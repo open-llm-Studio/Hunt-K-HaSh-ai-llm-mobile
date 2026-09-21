@@ -1,4 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Allow app to check if any other app can handle URLs -->
     <queries>
@@ -8,7 +9,14 @@
         </intent>
     </queries>
 
-    <!-- No advertising ID is requested: analytics collection is disabled. -->
+    <!--
+      No advertising ID. The Firebase Analytics library declares these in its
+      own manifest, and Android merges library manifests into the app, so
+      leaving them out here is not enough - they have to be removed explicitly.
+    -->
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove" />
+    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_AD_ID" tools:node="remove" />
+    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_ATTRIBUTION" tools:node="remove" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
